@@ -18,6 +18,9 @@ project "Hazel"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "hzpch.pch"
+	pchsource "Hazel/src/hzpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -30,15 +33,15 @@ project "Hazel"
 		"%{prj.name}/vendor/spdlog/include"
 	}
 
-	filter "system:windows"
+	filter "system:macosx"
 		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
 
 		defines
 		{
-			"HZ_PLATFORM_WINDOWS",
-			"HZ_BUILD_DLL"
+			"HZ_PLATFORM_APPLE",
+			"HZ_BUILD_DYLIB"
 		}
 
 		postbuildcommands
@@ -83,14 +86,14 @@ project "Sandbox"
 		"Hazel"
 	}
 
-	filter "system:windows"
+	filter "system:macosx"
 		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
 
 		defines
 		{
-			"HZ_PLATFORM_WINDOWS"
+			"HZ_PLATFORM_APPLE"
 		}
 
 	filter "configurations:Debug"
